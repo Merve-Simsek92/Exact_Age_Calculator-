@@ -37,7 +37,7 @@
     birtdayPicker.addEventListener("change",()=>{
         if( new Date(birtdayPicker.value)>new Date){
             alert("geçersiz tarih!!!!");
-            birtdayPicker.value=""
+            
         }else{
             setInterval(()=>{
            
