@@ -92,6 +92,33 @@ const updateCountdown = () =>{
     let minuteOfAge = currentMinute - dobMinute;
     let secondOfAge = currentSecond - dobSecond;
 
+    
+    if (secondOfAge < 0) {
+        secondOfAge += 60;
+        minuteOfAge--;
+    }
+    //minuteOfAge control  
+    if (minuteOfAge < 0) {
+        minuteOfAge += 60;
+        hourOfAge--;
+    }
+    //hourOfAge control  
+    if (hourOfAge < 0) {
+        hourOfAge += 24;
+        dayOfAge--;
+    }
+
+    if (dayOfAge < 0) {
+        // homework ==> instead of 30 get previous month dayNumber
+        dayOfAge += 30;
+        monthOfAge--;
+    }
+
+    if (monthOfAge < 0) {
+        monthOfAge += 12;
+        yearOfAge--;
+    }
+    
     //Add values to DOM
 
     years.innerHTML = yearOfAge.toString().padStart(2, "0");
