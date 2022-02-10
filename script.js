@@ -33,26 +33,44 @@
     let seconds=document.querySelector("#seconds")
     let birtdayPicker=document.querySelector("[name=birthday]")
      
-    setInterval(Event,1000);
+    
     birtdayPicker.addEventListener("change",()=>{
-        let year=new Date().getFullYear() -new Date(birtdayPicker.value).getFullYear();
-        document.getElementById("years").innerHTML=year;
-        let month=new Date().getMonth() - new Date(birtdayPicker.value).getMonth();
-        document.getElementById("months").innerHTML=month;
-        let day=new Date().getDay() - new Date(birtdayPicker.value).getDay();
-        document.getElementById("days").innerHTML=day;
-        let hours=new Date().getHours() - new Date(birtdayPicker.value).getHours();
-        document.getElementById("hours").innerHTML=hours;
-        let minutes=new Date().getMinutes() - new Date(birtdayPicker.value).getMinutes();
-        document.getElementById("minutes").innerHTML=minutes;
-        let seconds=new Date().getSeconds() - new Date(birtdayPicker.value).getSeconds();
-        document.getElementById("seconds").innerHTML=seconds;
+        if( new Date(birtdayPicker.value)>new Date){
+            alert("geçersiz tarih!!!!");
+            birtdayPicker.value=""
+        }else{
+            setInterval(()=>{
+           
+           if(new Date().getDate()-new Date(birtdayPicker.value).getDate()<0){
+               days.innerText=new Date().getDate()-new Date(birtdayPicker.value).getDate() +30;
+
+           }else{
+               days.innerText=new Date().getDate()-new Date(birtdayPicker.value).getDate()
+           } 
+           if(new Date().getMonth()-new Date(birtdayPicker.value).getMonth()<0){
+               months.innerText=new Date().getMonth()-new Date(birtdayPicker.value).getMonth() + 12;
+               years.innerText=new Date().getFullYear() - new Date(birtdayPicker.value).getFullYear() - 1;
+           } else{
+               months.innerText=new Date().getMonth()-new Date(birtdayPicker.value).getMonth()
+               years.innerText=new Date().getFullYear() - new Date(birtdayPicker.value).getFullYear() 
+           }   
+
+        
+       
+       new Date().getDate() - new Date(birtdayPicker.value).getDate();
+        hours.innerText=new Date().getHours() - new Date(birtdayPicker.value).getHours();
+    
+         minutes.innerText=new Date().getMinutes() - new Date(birtdayPicker.value).getMinutes();
+       seconds.innerText=new Date().getSeconds() - new Date(birtdayPicker.value).getSeconds();},1000)}})
+    
         
 
-    })
+    
     let body=document.querySelector("body")
     let loading=document.querySelector(".loading")
     birtdayPicker.addEventListener("click",()=>{
         loading.style.display="none";
-        body.style.background="url('https://images3.alphacoders.com/853/thumb-1920-85305.jpg')";
+        body.style.background="url('http://3.bp.blogspot.com/-H95QDWZ7FyY/VWsVQQidSHI/AAAAAAAAJO8/1UaWkHLksiw/s1600/0gCSA.jpg')";
+        body.style.backgroundSize="cover"
+
     })
