@@ -1,77 +1,105 @@
-// // // let years=document.getElementById("years").innerText
-// // // console.log(years)
+const years = document.getElementById("years");
+const months = document.getElementById("months");
+const days = document.getElementById("days");
+const hours = document.querySelector("#hours");
+const minutes = document.querySelector("#minutes");
+const seconds = document.querySelector("#seconds");
+const countdown = document.querySelector("#countdown");
+// console.log(countdown);
 
-// // // let months=document.getElementById("months").innerText
-// // // console.log(months)
-
-// // // let days=document.getElementById("days").innerText
-// // // console.log(days)
-
-// // // let hours=document.getElementById("hours").innerText
-// // // console.log(hours)
-
-
-// // // let minutes=document.getElementById("minutes").innerText
-// // // console.log(minutes)
-
-// // // let seconds=document.getElementById("seconds").innerText
-// // // console.log(seconds)
-
-// // // let birtdayPicker=document.querySelector("[name=birthday]");
-// // // birtdayPicker.addEventListener("change",()=>{
-// // //     let years=new Date().getFullYear() - new Date(birtdayPicker.value).getFullYear();
+const loading = document.querySelector(".loading");
+window.addEventListener("load", ()=>{
+    loading.style.display = "block";
+    //miliseconds in setTimeout
+    setTimeout(()=>{
+        loading.style.display = "none";
+        countdown.style.display = "flex";
+    }, 1000);
     
-// // // })
+    // years.innerHTML = "00";
+    // months.innerHTML = "00";
+    // days.innerHTML = "00";
+    // hours.innerHTML = "00";
+    // minutes.innerHTML = "00";
+    // seconds.innerHTML = "00";
 
+    let H2Elements = document.getElementsByTagName("h2");
+    // console.log("H2Elements", H2Elements);
+    // for (let index = 0; index < H2Elements.length; index++) {
+    //     H2Elements[index].innerHTML = "00";
+    // }
 
+    let H2Elements2 = countdown.querySelectorAll("h2");
+    // console.log("H2Elements2", H2Elements2);
 
-    let years=document.querySelector("#years")
-    let months=document.querySelector("#months")
-    let days=document.querySelector("#days")
-    let hours=document.querySelector("#hours")
-    let minutes=document.querySelector("#minutes")
-    let seconds=document.querySelector("#seconds")
-    let birtdayPicker=document.querySelector("[name=birthday]")
-     
+    // nodeList.forEach()
+    // Array.forEach()
+
+    // H2Elements2.forEach((element) =>{
+    //     console.log(element)
+    //     element.innerHTML = "00";
+    // });
+
+    //convert to array from html Collection
+    // Array.from(H2Elements).forEach(el => {
+    //     el.innerHTML = "00";
+    // });
+
+    [...H2Elements].forEach(el => {
+        el.innerHTML = "00";
+    });
+});
+
+let selectedBirthday;
+let birthdayInput = document.querySelector("input[name=birthday]");
+birthdayInput.addEventListener("change", (event)=>{
+    console.log("dateString", event.target.value);
+    //event.target == birthdayInput
+    //convert to date from dateString
+    selectedBirthday = new Date(event.target.value);
+    console.log("dateObject", selectedBirthday);
+    if(selectedBirthday > new Date()){
+        alert("Doğum tarihiniz bugünden büyük olamaz!!");
+        return;
+    }
+    document.body.style.backgroundImage = "url('https://images.unsplash.com/photo-1467810563316-b5476525c0f9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1349&q=80')";
     
-    birtdayPicker.addEventListener("change",()=>{
-        if( new Date(birtdayPicker.value)>new Date){
-           return  alert("geçersiz tarih!!!!");
-             
-            
-        }else{
-            setInterval(()=>{
-           
-           if(new Date().getDate()-new Date(birtdayPicker.value).getDate()<0){
-               days.innerText=new Date().getDate()-new Date(birtdayPicker.value).getDate() +30;
+    setInterval(updateCountdown, 1000);
 
-           }else{
-               days.innerText=new Date().getDate()-new Date(birtdayPicker.value).getDate()
-           } 
-           if(new Date().getMonth()-new Date(birtdayPicker.value).getMonth()<0){
-               months.innerText=new Date().getMonth()-new Date(birtdayPicker.value).getMonth() + 12;
-               years.innerText=new Date().getFullYear() - new Date(birtdayPicker.value).getFullYear() - 1;
-           } else{
-               months.innerText=new Date().getMonth()-new Date(birtdayPicker.value).getMonth()
-               years.innerText=new Date().getFullYear() - new Date(birtdayPicker.value).getFullYear() 
-           }   
+});
 
-        
-       
-       new Date().getDate() - new Date(birtdayPicker.value).getDate();
-        hours.innerText=new Date().getHours() - new Date(birtdayPicker.value).getHours();
-    
-         minutes.innerText=new Date().getMinutes() - new Date(birtdayPicker.value).getMinutes();
-       seconds.innerText=new Date().getSeconds() - new Date(birtdayPicker.value).getSeconds();},1000)}})
-    
-        
+const updateCountdown = () =>{
+    let dobYear = selectedBirthday.getFullYear();
+    let dobMonth = selectedBirthday.getMonth();
+    let dobDay = selectedBirthday.getDate();
+    let dobHour = selectedBirthday.getHours();
+    let dobMinute = selectedBirthday.getMinutes();
+    let dobSecond = selectedBirthday.getSeconds();
 
-    
-    let body=document.querySelector("body")
-    let loading=document.querySelector(".loading")
-    birtdayPicker.addEventListener("click",()=>{
-        loading.style.display="none";
-        body.style.background="url('http://3.bp.blogspot.com/-H95QDWZ7FyY/VWsVQQidSHI/AAAAAAAAJO8/1UaWkHLksiw/s1600/0gCSA.jpg')";
-        body.style.backgroundSize="cover"
+    let now = new Date();
 
-    })
+    let currentYear = now.getFullYear();
+    let currentMonth = now.getMonth();
+    let currentDay = now.getDate();
+    let currentHour = now.getHours();
+    let currentMinute = now.getMinutes();
+    let currentSecond = now.getSeconds();
+
+    let yearOfAge = currentYear - dobYear;
+    let monthOfAge = currentMonth - dobMonth;
+    let dayOfAge = currentDay - dobDay;
+    let hourOfAge = currentHour - dobHour;
+    let minuteOfAge = currentMinute - dobMinute;
+    let secondOfAge = currentSecond - dobSecond;
+
+    //Add values to DOM
+
+    years.innerHTML = yearOfAge.toString().padStart(2, "0");
+    months.innerHTML = monthOfAge.toString().padStart(2, "0");
+    days.innerHTML = dayOfAge.toString().padStart(2, "0");
+    hours.innerHTML = hourOfAge.toString().padStart(2, "0");
+    minutes.innerHTML = minuteOfAge.toString().padStart(2, "0");
+    seconds.innerHTML = secondOfAge.toString().padStart(2, "0");
+
+
+}
